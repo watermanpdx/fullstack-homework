@@ -31,19 +31,19 @@ Use console.log() to write the proper output to the command line.
 
 // Implementation =======================================================================
 
-for (let i = 1; i <= 100; i++) {
-  let response = "";
+for (let i = 1; i <= 100; i += 1) {
+  let response = '';
 
   // Divisible by 3 and/or 5
-  if (i % 3 == 0) {
-    response += "fizz";
+  if (i % 3 === 0) {
+    response += 'fizz';
   }
-  if (i % 5 == 0) {
-    response += "buzz";
+  if (i % 5 === 0) {
+    response += 'buzz';
   }
 
-  // Neither divixible by 3 nor 5
-  if (response === "") {
+  // Neither divisible by 3 nor 5
+  if (response === '') {
     response = String(i);
   }
 
