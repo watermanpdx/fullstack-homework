@@ -1,3 +1,6 @@
+// 01-fizzbuzz.js
+
+// About ================================================================================
 /** Exercise 01 - Fizzbuzz
 
 Write a program that writes all the numbers from 1 to 100, with some exceptions: 
@@ -25,3 +28,24 @@ Use console.log() to write the proper output to the command line.
 // 14
 // fizzbuzz
 // ...
+
+// Implementation =======================================================================
+
+for (let i = 1; i <= 100; i++) {
+  let response = "";
+
+  // Divisible by 3 and/or 5
+  if (i % 3 == 0) {
+    response += "fizz";
+  }
+  if (i % 5 == 0) {
+    response += "buzz";
+  }
+
+  // Neither divixible by 3 nor 5
+  if (response === "") {
+    response = String(i);
+  }
+
+  console.log(response);
+}
