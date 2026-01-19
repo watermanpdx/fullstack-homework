@@ -31,21 +31,27 @@ Use console.log() to write the proper output to the command line.
 
 // Implementation =======================================================================
 
-for (let i = 1; i <= 100; i += 1) {
-  let response = '';
+const fizzbuzz = function fizzbuzzRange(a, b) {
+  // Compute and print fizzbuzz for all integers from a to b (inclusive)
 
-  // Divisible by 3 and/or 5
-  if (i % 3 === 0) {
-    response += 'fizz';
-  }
-  if (i % 5 === 0) {
-    response += 'buzz';
-  }
+  for (let i = a; i <= b; i += 1) {
+    let response = '';
 
-  // Neither divisible by 3 nor 5
-  if (response === '') {
-    response = String(i);
-  }
+    // Divisible by 3 and/or 5
+    if (i % 3 === 0) {
+      response += 'fizz';
+    }
+    if (i % 5 === 0) {
+      response += 'buzz';
+    }
 
-  console.log(response);
-}
+    // Neither divisible by 3 nor 5
+    if (response === '') {
+      response = String(i);
+    }
+
+    console.log(response);
+  }
+};
+
+fizzbuzz(1, 100);
