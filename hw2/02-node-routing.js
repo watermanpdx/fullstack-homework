@@ -21,8 +21,50 @@ const server = http.createServer((req, res) => {
     'other',
   ];
 
-  res.writeHead(200, { 'Content-Type': 'text/html' });
-  res.write('Node Routing Exercise');
+  const path = req.url.slice(1); //Remove leading '/'
+  switch (path) {
+    case '':
+      res.writeHead(200, { 'Content-Type': 'text/html' });
+      res.write('Node Routing Exercise');
+      break;
+
+    case routes[0]:
+      res.writeHead(200, { 'Content-Type': 'text/html' });
+      res.write('welcome to the welcome page!');
+      break;
+
+    case routes[1]:
+      res.writeHead(302, { Location: routes[2] });
+      break;
+
+    case routes[2]:
+      res.writeHead(200, { 'Content-Type': 'text/html' });
+      res.write(
+        `redirected from /${routes[1]} - whether you wanted it or not, you're here!`,
+      );
+      break;
+
+    case routes[3]:
+      res.writeHead(200, {
+        'Content-Type': 'text/html',
+        'Cache-Control': 'max-age=86400',
+      });
+      res.write('this resource was cached');
+      break;
+
+    case routes[4]:
+      res.writeHead(200, {
+        'Content-Type': 'text/html',
+        'Set-Cookie': 'hello=world',
+      });
+      res.write('cookies... yummm');
+      break;
+
+    default:
+      res.writeHead(404, { 'Content-Type': 'text/html' });
+      res.write('404 - page not found');
+      break;
+  }
   res.end();
 });
 
