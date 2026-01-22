@@ -23,20 +23,24 @@ const server = http.createServer((req, res) => {
 
   const path = req.url.slice(1); //Remove leading '/'
   switch (path) {
+    // root url
     case '':
       res.writeHead(200, { 'Content-Type': 'text/html' });
       res.write('Node Routing Exercise');
       break;
 
+    // /welcome
     case routes[0]:
       res.writeHead(200, { 'Content-Type': 'text/html' });
       res.write('welcome to the welcome page!');
       break;
 
+    // /redirect
     case routes[1]:
       res.writeHead(302, { Location: routes[2] });
       break;
 
+    // /redirected
     case routes[2]:
       res.writeHead(200, { 'Content-Type': 'text/html' });
       res.write(
@@ -44,6 +48,7 @@ const server = http.createServer((req, res) => {
       );
       break;
 
+    // /cache
     case routes[3]:
       res.writeHead(200, {
         'Content-Type': 'text/html',
@@ -52,6 +57,7 @@ const server = http.createServer((req, res) => {
       res.write('this resource was cached');
       break;
 
+    // /cookie
     case routes[4]:
       res.writeHead(200, {
         'Content-Type': 'text/html',
@@ -60,6 +66,7 @@ const server = http.createServer((req, res) => {
       res.write('cookies... yummm');
       break;
 
+    // 404 / unsupported paths
     default:
       res.writeHead(404, { 'Content-Type': 'text/html' });
       res.write('404 - page not found');

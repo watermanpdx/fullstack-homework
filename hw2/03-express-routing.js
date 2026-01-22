@@ -28,6 +28,47 @@ app.get('/', (req, res) => {
 });
 
 // Add your code here
+// /welcome
+app.get('/' + routes[0], (req, res) => {
+  res.status(200);
+  res.set({ 'Content-Type': 'text/html' });
+  res.send('welcome to the welcome page!');
+});
+
+// /redirect
+app.get('/' + routes[1], (req, res) => {
+  res.redirect(302, routes[2]);
+});
+
+// /redirected
+app.get('/' + routes[2], (req, res) => {
+  res.status(200);
+  res.set({ 'Content-Type': 'text/html' });
+  res.send(
+    `redirected from /${'/' + routes[1]} - whether you wanted it or not, you're here!`,
+  );
+});
+
+// /cache
+app.get('/' + routes[3], (req, res) => {
+  res.status(200);
+  res.set('Cache-Control', 'max-age=86400');
+  res.send('this resource was cached');
+});
+
+// /cookie
+app.get('/' + routes[4], (req, res) => {
+  res.status(200);
+  res.set('Set-Cookie', 'hello=world');
+  res.send('cookies... yummm');
+});
+
+// 404 / unsupported paths
+app.use((req, res) => {
+  res.status(404);
+  res.set({ 'Content-Type': 'text/html' });
+  res.send('404 - page not found');
+});
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
