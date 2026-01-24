@@ -21,56 +21,62 @@ const server = http.createServer((req, res) => {
     'other',
   ];
 
-  const path = req.url.slice(1); //Remove leading '/'
-  switch (path) {
+  switch (req.url) {
     // root url
-    case '':
+    case '/': {
       res.writeHead(200, { 'Content-Type': 'text/html' });
       res.write('Node Routing Exercise');
       break;
+    }
 
     // /welcome
-    case routes[0]:
+    case '/welcome': {
       res.writeHead(200, { 'Content-Type': 'text/html' });
       res.write('welcome to the welcome page!');
       break;
+    }
 
     // /redirect
-    case routes[1]:
-      res.writeHead(302, { Location: routes[2] });
+    case '/redirect': {
+      res.writeHead(302, { Location: '/redirected' });
       break;
+    }
 
     // /redirected
-    case routes[2]:
+    case '/redirected': {
       res.writeHead(200, { 'Content-Type': 'text/html' });
       res.write(
-        `redirected from /${routes[1]} - whether you wanted it or not, you're here!`,
+        `redirected from ${req.url} - whether you wanted it or not, you're here!`,
       );
       break;
+    }
 
     // /cache
-    case routes[3]:
+    case '/cache': {
       res.writeHead(200, {
         'Content-Type': 'text/html',
         'Cache-Control': 'max-age=86400',
       });
       res.write('this resource was cached');
       break;
+    }
 
     // /cookie
-    case routes[4]:
+    case '/cookie': {
       res.writeHead(200, {
         'Content-Type': 'text/html',
         'Set-Cookie': 'hello=world',
       });
       res.write('cookies... yummm');
       break;
+    }
 
     // 404 / unsupported paths
-    default:
+    default: {
       res.writeHead(404, { 'Content-Type': 'text/html' });
       res.write('404 - page not found');
       break;
+    }
   }
   res.end();
 });

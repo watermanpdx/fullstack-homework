@@ -33,7 +33,7 @@ const calculateChange = function calculateChangeAndLogToConsole(
   }
 
   // Loop over denominations and calculate sub-strings
-  for (const d of denominations) {
+  denominations.forEach((d) => {
     const count = Math.floor(scaledTotal / d.valueCents);
     if (count === 1) {
       response += `${count} ${d.single}, `;
@@ -41,7 +41,7 @@ const calculateChange = function calculateChangeAndLogToConsole(
       response += `${count} ${d.plural}, `;
     }
     scaledTotal %= d.valueCents;
-  }
+  });
 
   // Discard trailing ', ' from loop and return
   return response.slice(0, -2);

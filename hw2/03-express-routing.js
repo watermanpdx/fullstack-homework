@@ -29,35 +29,35 @@ app.get('/', (req, res) => {
 
 // Add your code here
 // /welcome
-app.get('/' + routes[0], (req, res) => {
+app.get('/welcome', (req, res) => {
   res.status(200);
   res.set({ 'Content-Type': 'text/html' });
   res.send('welcome to the welcome page!');
 });
 
 // /redirect
-app.get('/' + routes[1], (req, res) => {
-  res.redirect(302, routes[2]);
+app.get('/redirect', (req, res) => {
+  res.redirect(302, '/redirected');
 });
 
 // /redirected
-app.get('/' + routes[2], (req, res) => {
+app.get('/redirected', (req, res) => {
   res.status(200);
   res.set({ 'Content-Type': 'text/html' });
   res.send(
-    `redirected from /${'/' + routes[1]} - whether you wanted it or not, you're here!`,
+    `redirected from ${req.url} - whether you wanted it or not, you're here!`,
   );
 });
 
 // /cache
-app.get('/' + routes[3], (req, res) => {
+app.get('/cache', (req, res) => {
   res.status(200);
   res.set('Cache-Control', 'max-age=86400');
   res.send('this resource was cached');
 });
 
 // /cookie
-app.get('/' + routes[4], (req, res) => {
+app.get('/cookie', (req, res) => {
   res.status(200);
   res.set('Set-Cookie', 'hello=world');
   res.send('cookies... yummm');
