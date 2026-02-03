@@ -21,8 +21,63 @@ const server = http.createServer((req, res) => {
     'other',
   ];
 
-  res.writeHead(200, { 'Content-Type': 'text/html' });
-  res.write('Node Routing Exercise');
+  switch (req.url) {
+    // root url
+    case '/': {
+      res.writeHead(200, { 'Content-Type': 'text/html' });
+      res.write('Node Routing Exercise');
+      break;
+    }
+
+    // /welcome
+    case '/welcome': {
+      res.writeHead(200, { 'Content-Type': 'text/html' });
+      res.write('welcome to the welcome page!');
+      break;
+    }
+
+    // /redirect
+    case '/redirect': {
+      res.writeHead(302, { Location: '/redirected' });
+      break;
+    }
+
+    // /redirected
+    case '/redirected': {
+      res.writeHead(200, { 'Content-Type': 'text/html' });
+      res.write(
+        `redirected from ${req.url} - whether you wanted it or not, you're here!`,
+      );
+      break;
+    }
+
+    // /cache
+    case '/cache': {
+      res.writeHead(200, {
+        'Content-Type': 'text/html',
+        'Cache-Control': 'max-age=86400',
+      });
+      res.write('this resource was cached');
+      break;
+    }
+
+    // /cookie
+    case '/cookie': {
+      res.writeHead(200, {
+        'Content-Type': 'text/html',
+        'Set-Cookie': 'hello=world',
+      });
+      res.write('cookies... yummm');
+      break;
+    }
+
+    // 404 / unsupported paths
+    default: {
+      res.writeHead(404, { 'Content-Type': 'text/html' });
+      res.write('404 - page not found');
+      break;
+    }
+  }
   res.end();
 });
 
