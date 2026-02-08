@@ -6,18 +6,18 @@ export default function Game() {
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
 
-  function handlePlay(nextSquares) {
+  const handlePlay = function handlePlayFromStates(nextSquares) {
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
     setHistory(nextHistory);
     setCurrentMove(nextHistory.length - 1);
-  }
+  };
 
-  function jumpTo(nextMove) {
+  const jumpTo = function jumpToMove(nextMove) {
     setCurrentMove(nextMove);
-  }
+  };
 
   const moves = history.map((squares, move) => {
-    let description;
+    let description = null;
     if (move > 0) {
       description = 'Go to move #' + move;
     } else {
@@ -46,9 +46,9 @@ function Board({ xIsNext, squares, onPlay }) {
   const winner = calculateWinner(squares);
   let status;
   if (winner) {
-    status = 'Winner: ' + winner;
+    status = `Winner: ${winner}`;
   } else {
-    status = 'Next player: ' + (xIsNext ? 'X' : 'O');
+    status = `Next player: ${xIsNext ? 'X' : 'O'}`;
   }
 
   function handleClick(i) {
@@ -140,7 +140,7 @@ function Square({ value, onSquareClick }) {
   );
 }
 
-function calculateWinner(squares) {
+const calculateWinner = function calculateWinnerFromState(squares) {
   const lines = [
     [0, 1, 2],
     [3, 4, 5],
@@ -151,11 +151,11 @@ function calculateWinner(squares) {
     [0, 4, 8],
     [2, 4, 6],
   ];
-  for (let i = 0; i < lines.length; i++) {
+  for (let i = 0; i < lines.length; i += 1) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
       return squares[a];
     }
   }
   return null;
-}
+};
